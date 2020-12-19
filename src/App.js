@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import * as s from '../src/App.styles'
 
-function App() {
+
+// Components
+import Sidebar from '../src/Components/Sidebar/Sidebar'
+import MainView from '../src/Components/MainView/MainView'
+import menuItems from '../src/utils/menuItems'
+
+const App = () => {
+  const backgroundImage = 'images/background.jpg'
+  const sidebarHeader = 
+  {
+    fullName: 'Amparando Tu Salud',
+    shortName: 'ATS'
+  };
+  const fonts = 
+  {
+    header: 'Poppins',
+    menu: 'Poppins'
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <s.App>
+      <Sidebar 
+        backgroundImage={backgroundImage}
+        sidebarHeader={sidebarHeader}
+        menuItems={menuItems}
+        fonts={fonts}
+        />
+      <MainView />
+    </s.App>
   );
 }
 
