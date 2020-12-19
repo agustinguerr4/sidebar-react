@@ -9,7 +9,6 @@ const Sidebar = props => {
         sidebarHeader = {
             fullName: 'React-Sidebar',
             shortName: 'RS'
-
         },
         menuItems = [],
         fonts = {
@@ -19,34 +18,34 @@ const Sidebar = props => {
     } = props;
 
     const widthDefault = window.innerWidth > 768 ? true : false;
-
     // State
     const [selected, setSelected] = useState(menuItems[0].name);
     const [isOpen, setIsOpen] = useState(widthDefault);
     const [header, setHeader] = useState('');
 
-
-    // Effect
+    // Effect of Name Header
     useEffect(() => {
-       
         isOpen ? setTimeout(()=>{setHeader(sidebarHeader.fullName)},200) : setHeader(sidebarHeader.shortName);
-        
     }, [isOpen,sidebarHeader])
 
     // Menu Items
     const menuItemsJSX = menuItems.map((item, index) => {
 
         const isItemSelected = selected === item.name;
-
+        const hasSubmenus = !!item.submenuItems.length;
         return (
             <s.MenuItem
                 key={index}
                 font={fonts.menu}
                 isItemSelected={isItemSelected}
                 onClick={() => handleItemSelected(item.name)}
+                isOpen={isOpen}
             >
-                <s.Icon src={item.icon}></s.Icon>
-                <s.Text>{item.name}</s.Text>
+                <s.Icon src={item.icon} isOpen={isOpen}></s.Icon>
+                <s.Text  isOpen={isOpen}>{item.name}</s.Text>
+                {hasSubmenus &&(
+                    <s.DropdownIcon isItemSelected={isItemSelected}/>
+                )}
             </s.MenuItem>
         )
     })
@@ -57,7 +56,7 @@ const Sidebar = props => {
 
     return (
         <s.SidebarContainer backgroundImage={backgroundImage} isOpen={isOpen}>
-            <s.TogglerContainer onClick={() => setIsOpen(!isOpen)} ></s.TogglerContainer>
+            <s.TogglerContainer onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}></s.TogglerContainer>
             <s.SidebarHeader font={fonts.header}>{header}</s.SidebarHeader>
             <s.MenuItemsContainer>{menuItemsJSX}</s.MenuItemsContainer>
         </s.SidebarContainer>

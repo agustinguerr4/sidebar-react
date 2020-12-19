@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 
 export const App = styled.div`
-background: grey;
 height: 100vh;
 display:flex;
 min-height:500px;
