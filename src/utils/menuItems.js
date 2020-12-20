@@ -3,26 +3,26 @@ const menuItems = [
         name: 'Casa',
         to: '/',
         icon: 'icons/home.svg',
-        submenuItems: []
+        subMenuItems: []
     },
     {
         name: 'About',
         to: '/about',
         icon: 'icons/about.svg',
-        submenuItems: []
+        subMenuItems: []
     },
     {
         name: 'Services',
         to: '/services',
         icon: 'icons/services.svg',
-        submenuItems: [
+        subMenuItems: [
             {
-                name: 'Derecho a la Salud',
+                name: 'Salud',
                 to: '/salud',
                 icon: '/'
             },
             {
-                name: 'Derecho al Medioambiente',
+                name: 'Medioambiente',
                 to: '/medioambiente',
                 icon: '/'
             }
@@ -32,7 +32,7 @@ const menuItems = [
         name: 'Contact',
         to: '/contact',
         icon: 'icons/contact.svg',
-        submenuItems: []
+        subMenuItems: []
     },
 ]
 

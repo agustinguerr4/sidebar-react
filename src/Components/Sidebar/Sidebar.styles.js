@@ -17,10 +17,13 @@ export const SidebarContainer = styled.div`
     position: relative; // Toggler
     transition: .2s ease-in all;
 
-    @media (max-width: 991.97px){ 
-        width: ${p => p.isOpen ? '50%' : '15%'} ;
+    @media (max-width: 576.97px){ 
+        width: ${p => p.isOpen ? '80%' : '15%'} ;
     }
 
+    @media (min-width: 577px) and (max-width: 992px){ 
+        width: ${p => p.isOpen ? '30%' : '7%'} ;
+    }
 `
 
 export const SidebarHeader = styled.h3`
@@ -34,9 +37,10 @@ export const SidebarHeader = styled.h3`
     padding: 0em .3em;
 `
 
+// ----------------- Menu Items
 export const MenuItemsContainer = styled.div`
-
-`
+position:relative`
+export const MenuContainer = styled.div``
 
 export const MenuItem = styled.div`
 
@@ -99,22 +103,70 @@ export const Icon = styled.img`
     height:1em;
 `
 
+// -------------------- Sub Menu Items
+
 export const DropdownIcon = styled.div`
-    position:absolute;
-    border: solid ${p => p.isItemSelected ? 'white ' : 'rgb(19,15,64)'} ;
-    border-width: 0 1px 1px 0;
-    transform:rotate(45deg);
-    padding:.2em;
-    top:1em;
-    right:1em;
+${p => p.isOpen &&
+`
+position:absolute;
+border: solid ${p.isItemSelected ? 'white ' : 'rgb(19,15,64)'} ;
+border-width: 0 1px 1px 0;
+transform:rotate(${p.isSubmenuOpen ? '225deg' : '45deg'});
+padding:.2em;
+top:${p.isSubmenuOpen ? '1em' : '1em'};
+right:1em;
+transition: .2s ease-in transform;
+`}
     
 `
+
+export const subMenuItemsContainer = styled.div`
+${p => !p.isOpen && `
+
+position: absolute;
+top:0;
+left:4.1em;
+transition: .2s ease-in all;
+
+@media (max-width: 991.97px){
+    left:3.2em;
+}
+`}
+
+`
+
+
+export const subMenuItem = styled.p`
+    font-size:.8em;
+    font-weight:200;
+    padding: .5em 2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    color:rgb(19,15,64);
+    &:hover{
+        color: rgb(255,255,255);
+        cursor:default;
+    }
+
+
+    ${p => p.isSubmenuOpen ? 'display:block' : 'display:none'};
+
+    ${p => !p.isOpen && `
+    font-size: .7em;
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid white;
+    `}
+
+    transition: .2s ease-in all;
+    `
 
 //--------------- Toggler -----------------
 
 export const TogglerContainer = styled.div`
         position: relative;
-
+        
         &:after{
             ${p => p.isOpen ? `content:'<';`
                             : `content:'>';`}
@@ -130,6 +182,7 @@ export const TogglerContainer = styled.div`
             border-radius: 50%;
             color:rgb(19,15,64);
             box-shadow: 4px 2px 2px rgba(0,0,0,0.3);
+            transition:  .2s ease-in box-shadow;
         }
         &:hover{
             &:after{
@@ -137,6 +190,7 @@ export const TogglerContainer = styled.div`
                 transition:  .2s ease-in all;
             }
         }
+
 `
 
 
