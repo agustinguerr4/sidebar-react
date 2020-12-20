@@ -5,6 +5,7 @@ import * as s from '../src/App.styles'
 import Sidebar from '../src/Components/Sidebar/Sidebar'
 import MainView from '../src/Components/MainView/MainView'
 import menuItems from '../src/utils/menuItems'
+import Header from '../src/Components/Header/Header'
 
 const App = () => {
   const backgroundImage = 'images/background.jpg'

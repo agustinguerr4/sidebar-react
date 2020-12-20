@@ -1,19 +1,19 @@
 const menuItems = [
     {
-        name: 'Casa',
+        name: 'Inicio',
         to: '/',
         icon: 'icons/home.svg',
         subMenuItems: []
     },
     {
-        name: 'About',
-        to: '/about',
+        name: 'Nostros',
+        to: '/nosotros',
         icon: 'icons/about.svg',
         subMenuItems: []
     },
     {
-        name: 'Services',
-        to: '/services',
+        name: 'Servicios',
+        to: '/servicios',
         icon: 'icons/services.svg',
         subMenuItems: [
             {
@@ -25,14 +25,45 @@ const menuItems = [
                 name: 'Medioambiente',
                 to: '/medioambiente',
                 icon: '/'
+            },
+            {
+                name: 'Medioambiente',
+                to: '/medioambiente',
+                icon: '/'
+            },
+            {
+                name: 'Medioambiente',
+                to: '/medioambiente',
+                icon: '/'
             }
         ]
     },
     {
-        name: 'Contact',
-        to: '/contact',
+        name: 'Contacto',
+        to: '/contacto',
         icon: 'icons/contact.svg',
-        subMenuItems: []
+        subMenuItems: [
+            {
+                name: 'Salud',
+                to: '/salud',
+                icon: '/'
+            },
+            {
+                name: 'Medioambiente',
+                to: '/medioambiente',
+                icon: '/'
+            },
+            {
+                name: 'Medioambiente',
+                to: '/medioambiente',
+                icon: '/'
+            },
+            {
+                name: 'Medioambiente',
+                to: '/medioambiente',
+                icon: '/'
+            }
+        ]
     },
 ]
 

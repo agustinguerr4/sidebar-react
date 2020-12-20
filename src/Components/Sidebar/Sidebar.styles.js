@@ -52,6 +52,9 @@ export const MenuItem = styled.div`
     font-size:.9em;
     font-weight:200;
     color: ${p => p.isItemSelected ? 'white ' : 'rgb(19,15,64)'} ;
+
+    ${p => p.isItemSelected && 'font-weight:400; letter-spacing:1px'};
+    
     font-family: ${p => p.font};
     transition:  .2s ease-in all;
     white-space: nowrap;
@@ -143,7 +146,9 @@ export const subMenuItem = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow:ellipsis;
-    color:rgb(19,15,64);
+    color: ${p => p.selected ? 'rgb(255,255,255)' : 'rgb(19,15,64)' };
+    ${p => p.selected && 'font-weight:500; letter-spacing:2px'};
+    transition: .2s;
     &:hover{
         color: rgb(255,255,255);
         cursor:default;
