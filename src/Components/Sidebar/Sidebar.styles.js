@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 
 export const SidebarContainer = styled.div`
-    width: ${p => p.isOpen ? '18%' : '5%'} ;
+    width: ${p => p.isSidebarOpen ? '18%' : '5%'} ;
     background-image: 
     linear-gradient(
         315deg,
@@ -18,11 +18,11 @@ export const SidebarContainer = styled.div`
     transition: .2s ease-in all;
 
     @media (max-width: 576.97px){ 
-        width: ${p => p.isOpen ? '80%' : '15%'} ;
+        width: ${p => p.isSidebarOpen ? '80%' : '15%'} ;
     }
 
     @media (min-width: 577px) and (max-width: 992px){ 
-        width: ${p => p.isOpen ? '30%' : '7%'} ;
+        width: ${p => p.isSidebarOpen ? '30%' : '7%'} ;
     }
 `
 
@@ -44,7 +44,7 @@ export const MenuContainer = styled.div``
 
 export const MenuItem = styled.div`
 
-    ${p => !p.isOpen && `
+    ${p => !p.isSidebarOpen && `
         text-align: center;
         ${p.isItemSelected && 'background: rgba(0,0,0,0.6)'};
     `}
@@ -68,7 +68,7 @@ export const MenuItem = styled.div`
     &:after{
         content: '';
         border: 1px solid ${p => p.isItemSelected ? 'white ' : 'rgba(255,112,85)'};
-        display:block;
+        display: ${p => p.isSubmenuOpen && p.isSidebarOpen && p.isItemSelected ? 'none' : 'block'};
         margin: 8px 0 4px;
         transition: .1s ease-in all;
     }
@@ -85,11 +85,11 @@ export const MenuItem = styled.div`
 `
 
 export const Text = styled.p`
-    display: ${p => p.isOpen ? 'inline' : 'none'};
+    display: ${p => p.isSidebarOpen ? 'inline' : 'none'};
 `
 
 export const Icon = styled.img`
-    ${p => p.isOpen ? `
+    ${p => p.isSidebarOpen ? `
     padding-right: 1em;
     font-size: 1em;
     transition: .2s ease-in padding-right;
@@ -106,7 +106,7 @@ export const Icon = styled.img`
 // -------------------- Sub Menu Items
 
 export const DropdownIcon = styled.div`
-${p => p.isOpen &&
+${p => p.isSidebarOpen &&
 `
 position:absolute;
 border: solid ${p.isItemSelected ? 'white ' : 'rgb(19,15,64)'} ;
@@ -121,7 +121,7 @@ transition: .2s ease-in transform;
 `
 
 export const subMenuItemsContainer = styled.div`
-${p => !p.isOpen && `
+${p => !p.isSidebarOpen && `
 
 position: absolute;
 top:0;
@@ -152,7 +152,7 @@ export const subMenuItem = styled.p`
 
     ${p => p.isSubmenuOpen ? 'display:block' : 'display:none'};
 
-    ${p => !p.isOpen && `
+    ${p => !p.isSidebarOpen && `
     font-size: .7em;
     text-align: center;
     background: rgba(0,0,0,0.3);
@@ -168,7 +168,7 @@ export const TogglerContainer = styled.div`
         position: relative;
         
         &:after{
-            ${p => p.isOpen ? `content:'<';`
+            ${p => p.isSidebarOpen ? `content:'<';`
                             : `content:'>';`}
             text-align:center;
             position:absolute;

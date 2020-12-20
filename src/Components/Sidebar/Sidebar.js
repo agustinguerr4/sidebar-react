@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as s from '../Sidebar/Sidebar.styles'
-
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Sidebar = props => {
 
@@ -23,14 +23,14 @@ const Sidebar = props => {
 
     // State
     const [selected, setSelected] = useState(menuItems[0].name);
-    const [isOpen, setIsOpen] = useState(widthDefault);
+    const [isSidebarOpen, setisSidebarOpen] = useState(widthDefault);
     const [header, setHeader] = useState('');
     const [subMenuItemsStates, setSubMenus] = useState({})
 
     // Effect of Name Header
     useEffect(() => {
-        isOpen ? setTimeout(() => { setHeader(sidebarHeader.fullName) }, 200) : setHeader(sidebarHeader.shortName);
-    }, [isOpen, sidebarHeader])
+        isSidebarOpen ? setTimeout(() => { setHeader(sidebarHeader.fullName) }, 200) : setHeader(sidebarHeader.shortName);
+    }, [isSidebarOpen, sidebarHeader])
 
     // Add index of menu items to state
     useEffect(() => {
@@ -49,13 +49,17 @@ const Sidebar = props => {
 
     // Handle click menu items
     const handleItemSelected = (name, index) => {
+        
+
         setSelected(name)
+
         const subMenusCopy = JSON.parse(JSON.stringify(subMenuItemsStates))
         
         if (subMenuItemsStates.hasOwnProperty(index)) {
             subMenusCopy[index]['isSubmenuOpen'] = !subMenuItemsStates[index]['isSubmenuOpen']
             setSubMenus(subMenusCopy)
         }
+
     }
 
 
@@ -68,12 +72,12 @@ const Sidebar = props => {
 
         const subMenusJSX = item.subMenuItems.map((subMenuItem, subMenuIndex) => {
             return <s.subMenuItem
-                key={subMenuIndex}
-                isSubmenuOpen={isSubmenuOpen}
-                isOpen={isOpen}
-            >
-                {subMenuItem.name}
-            </s.subMenuItem>
+                    key={subMenuIndex}
+                    isSubmenuOpen={isSubmenuOpen}
+                    isSidebarOpen={isSidebarOpen}
+                    >
+                    {subMenuItem.name}
+                    </s.subMenuItem>
         });
 
         return (
@@ -82,21 +86,49 @@ const Sidebar = props => {
                     font={fonts.menu}
                     isItemSelected={isItemSelected}
                     onClick={() => handleItemSelected(item.name, index)}
-                    isOpen={isOpen}
+                    isSidebarOpen={isSidebarOpen}
+                    isSubmenuOpen={isSubmenuOpen}
                 >
-                    <s.Icon src={item.icon} isOpen={isOpen}></s.Icon>
-                    <s.Text isOpen={isOpen}>{item.name}</s.Text>
+                    <s.Icon src={item.icon} isSidebarOpen={isSidebarOpen}></s.Icon>
+                    <s.Text isSidebarOpen={isSidebarOpen}>{item.name}</s.Text>
                     {hasSubmenus && (
                         <s.DropdownIcon
                             isSubmenuOpen={isSubmenuOpen}
-                            isOpen={isOpen}
+                            isSidebarOpen={isSidebarOpen}
+                            isItemSelected={selected}
                         />
                     )}
                 </s.MenuItem>
-                <s.subMenuItemsContainer
-                    isOpen={isOpen}>
-                    {subMenusJSX}
-                </s.subMenuItemsContainer>
+                <AnimatePresence>
+                {isSidebarOpen ?
+                hasSubmenus && isSubmenuOpen &&(
+                    <motion.nav
+                    initial={{ opacity: 0, y: -15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35}}
+                    exit={{ opacity: 0, x: -10 }}
+                    >
+                        <s.subMenuItemsContainer
+                            isSidebarOpen={isSidebarOpen}>
+                            {subMenusJSX}
+                        </s.subMenuItemsContainer>
+                    </motion.nav>
+                ) :
+                hasSubmenus && isSubmenuOpen &&(
+                    <motion.nav
+                    initial={{ opacity: 0, y:0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: .5}}
+                    exit={{ opacity: 0, x: 0 }}
+                    >
+                        <s.subMenuItemsContainer
+                            isSidebarOpen={isSidebarOpen}>
+                            {subMenusJSX}
+                        </s.subMenuItemsContainer>
+                    </motion.nav>
+                ) 
+                }</AnimatePresence>
+                
             </s.MenuItemsContainer>
 
         )
@@ -104,10 +136,10 @@ const Sidebar = props => {
     return (
         <s.SidebarContainer
             backgroundImage={backgroundImage}
-            isOpen={isOpen}>
+            isSidebarOpen={isSidebarOpen}>
             <s.TogglerContainer
-                onClick={() => setIsOpen(!isOpen)}
-                isOpen={isOpen}>
+                onClick={() => setisSidebarOpen(!isSidebarOpen)}
+                isSidebarOpen={isSidebarOpen}>
             </s.TogglerContainer>
             <s.SidebarHeader
                 font={fonts.header}
